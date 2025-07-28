@@ -4,7 +4,7 @@ const InternalServerError = require("../utils/internalServerError");
 
 async function createProduct(productDetails) {
     try {
-        const responce = Product.create(productDetails);
+        const responce = await Product.create(productDetails);
         return responce
     } catch(error) {
         if(error.name === 'ValidationError') {
@@ -20,7 +20,8 @@ async function createProduct(productDetails) {
 }
 async function getProductById(productId) {
     try {
-        const product = Product.findById(productId)
+        const product = Product.findById(productId);
+        return product
     } catch (error) {
         console.log(error);
         throw new InternalServerError()
@@ -29,7 +30,8 @@ async function getProductById(productId) {
 
 async function deleteProductById(productId) {
     try {
-        const product = Product.deleteProductById(productId)
+        const product = Product.findByIdAndDelete(productId);
+        return product
     } catch (error) {
         console.log(error);
         throw new InternalServerError()

@@ -25,7 +25,7 @@ async function createProduct(productDetails) {
 
 
 async function  getProductById(productId) {
-    const responce = productRepository.createProduct(productId)
+    const responce = await productRepository.getProductById(productId)
     if(!responce) {
         throw new NotFoundError('Product')
     }
@@ -33,7 +33,7 @@ async function  getProductById(productId) {
 }
 
 async function  deleteProductById(productId) {
-    const responce = productRepository.deleteProductById(productId);
+    const responce = await  productRepository.deleteProductById(productId);
     if(!responce) {
         throw new NotFoundError('Product')
     }
