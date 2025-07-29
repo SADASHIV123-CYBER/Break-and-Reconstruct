@@ -8,6 +8,7 @@ const authRouter = require('./routes/authRouter');
 const uploader = require('./middlewares/multerMiddleware');
 const fs = require('fs/promises');
 const cloudinary = require('./config/cloudnaryConfig');
+const cartRouter = require('./routes/cartRouter');
 
 
 
@@ -21,6 +22,7 @@ app.use(express.urlencoded({extended: true}));
 app.use('/users', userRouter);
 app.use('/products', productRouter);
 app.use('/auth', authRouter);
+app.use('/carts', cartRouter)
 
 app.get('/ping', (req, res) => {
     console.log(req.body);
