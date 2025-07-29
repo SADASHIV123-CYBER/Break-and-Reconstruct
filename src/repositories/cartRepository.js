@@ -1,6 +1,6 @@
 const Cart = require("../schema/cartSchema");
 const BadRequestError = require('../utils/badRequestError');
-const InternalServerError = require('../utils/badRequestError');
+const InternalServerError = require('../utils/internalServerError');
 const NotFoundError = require("../utils/notFoundError");
 
 async function createCart(userId) {
@@ -13,7 +13,7 @@ async function createCart(userId) {
     } catch (error) {
         console.log(error);
 
-        if(error.new === 'ValidationError') {
+        if(error.name === 'ValidationError') {
             const errorMessageList = Object.keys(error.errors).map(property => {
                 error.errors[property].message;
             });
@@ -31,7 +31,9 @@ async function getCartByUserId(userId) {
     try {
         const cart = await Cart.findOne({
             user: userId
-        })
+        }).populate('item.product');
+
+        return cart
     } catch (error) {
         console.log(error);
         throw new InternalServerError()

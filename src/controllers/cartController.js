@@ -33,6 +33,7 @@ async function getCartByUser(req, res) {
 async function modifyProductToCart(req, res) {
     try {
         const cart = await modifyCart(req.user.id, req.params.productId, req.params.operation == "add");
+        console.log(cart);
 
         return res.status(200).json({
             success: true,
@@ -40,6 +41,8 @@ async function modifyProductToCart(req, res) {
             error: {},
             data: cart
         })
+
+        
     } catch (error) {
         if(error instanceof AppError) {
             return res.status(error.statusCode).json({
@@ -53,7 +56,7 @@ async function modifyProductToCart(req, res) {
         console.log(error);
         
         return res.status(500).json({
-            return: false,
+            success: false,
             error: error,
             message: 'something went wrong',
             data: {}
